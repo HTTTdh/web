@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất cả bài viết - Blog Cá Nhân</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html">MyBlog</a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="blogs.html" class="nav-link active"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
+                        <li><a href="write.html" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a></li>
+                        <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40" alt="Avatar">
+                        <div class="dropdown">
+                            <a href="profile.html">Hồ sơ cá nhân</a>
+                            <a href="profile-edit.html">Cài đặt</a>
+                            <a href="#" onclick="logout()">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Tất cả bài viết</h1>
+                <p>Khám phá tất cả các bài viết trên blog của chúng tôi</p>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="search-filter-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Tìm kiếm bài viết..." id="searchInput">
+                    <button class="search-btn" onclick="searchPosts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="filter-categories">
+                    <button class="filter-btn active" data-category="all">Tất cả</button>
+                    <button class="filter-btn" data-category="programming">Lập trình</button>
+                    <button class="filter-btn" data-category="design">Thiết kế</button>
+                    <button class="filter-btn" data-category="marketing">Marketing</button>
+                    <button class="filter-btn" data-category="technology">Công nghệ</button>
+                    <button class="filter-btn" data-category="lifestyle">Cuộc sống</button>
+                </div>
+            </div>
+
+            <!-- Posts Grid -->
+            <div class="posts-grid" id="postsGrid">
+                <article class="post-card" data-category="programming">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="React Tutorial">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Lập trình</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 15/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a href="blog-detail.html">Hướng dẫn học React cho người mới bắt đầu</a>
+                        </h3>
+                        <p class="post-excerpt">React là một thư viện JavaScript phổ biến để xây dựng giao diện người dùng. Trong bài viết này, chúng ta sẽ tìm hiểu các khái niệm cơ bản...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Nguyễn Văn A</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 1,250</span>
+                                <span><i class="fas fa-comment"></i> 23</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" data-category="design">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="UI/UX Design">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Thiết kế</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 12/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a href="blog-detail.html">10 mẹo thiết kế UI/UX hiệu quả</a>
+                        </h3>
+                        <p class="post-excerpt">Thiết kế giao diện người dùng không chỉ là làm cho trang web đẹp mắt mà còn phải đảm bảo trải nghiệm người dùng tốt nhất...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Trần Thị B</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 890</span>
+                                <span><i class="fas fa-comment"></i> 15</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" data-category="marketing">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="SEO Guide">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Marketing</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 10/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a href="blog-detail.html">Cách tối ưu hóa SEO cho website</a>
+                        </h3>
+                        <p class="post-excerpt">SEO (Search Engine Optimization) là quá trình tối ưu hóa website để cải thiện thứ hạng trên các công cụ tìm kiếm...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Lê Văn C</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 2,100</span>
+                                <span><i class="fas fa-comment"></i> 45</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" data-category="technology">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="Tech Trends">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Công nghệ</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 08/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a href="blog-detail.html">Xu hướng công nghệ 2024</a>
+                        </h3>
+                        <p class="post-excerpt">Năm 2024 hứa hẹn sẽ là một năm đầy thú vị với nhiều xu hướng công nghệ mới nổi...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Phạm Văn D</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 1,800</span>
+                                <span><i class="fas fa-comment"></i> 32</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card" data-category="lifestyle">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="Time Management">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Cuộc sống</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 05/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a href="blog-detail.html">Cách quản lý thời gian hiệu quả</a>
+                        </h3>
+                        <p class="post-excerpt">Quản lý thời gian là một kỹ năng quan trọng giúp chúng ta làm việc hiệu quả hơn...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Hoàng Thị E</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 950</span>
+                                <span><i class="fas fa-comment"></i> 18</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn" disabled>Trước</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">Sau</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Về chúng tôi</h3>
+                    <p>Blog chia sẻ kiến thức và kinh nghiệm về công nghệ, thiết kế và cuộc sống.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="blogs.html">Tất cả bài viết</a></li>
+                        <li><a href="write.html">Viết bài</a></li>
+                        <li><a href="profile.html">Hồ sơ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Danh mục</h3>
+                    <ul>
+                        <li><a href="#">Lập trình</a></li>
+                        <li><a href="#">Thiết kế</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Công nghệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên hệ</h3>
+                    <ul>
+                        <li>Email: contact@myblog.com</li>
+                        <li>Điện thoại: +84 123 456 789</li>
+                        <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MyBlog. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/script.js"></script>
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        .search-filter-section {
+            margin-bottom: 3rem;
+        }
+
+        .filter-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #f3f4f6;
+        }
+
+        .pagination-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</body>
+</html>

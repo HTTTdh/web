@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Cá Nhân - Trang Chủ</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="main">
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Chào mừng đến với Blog của chúng tôi</h1>
+                <p>Khám phá những bài viết thú vị về công nghệ, thiết kế và cuộc sống</p>
+                <div class="hero-buttons">
+                    <a th:href="@{#}" class="btn btn-primary">Viết bài mới</a>
+                    <a th:href="@{#}" class="btn btn-outline">Xem hồ sơ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <!-- Bạn có thể sau này dùng Thymeleaf để hiển thị danh sách động -->
+    <section class="featured-posts">
+        <div class="container">
+            <h2 class="section-title">Bài viết nổi bật</h2>
+            <div class="posts-grid">
+                <!-- Bài viết mẫu -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="https://via.placeholder.com/400x200" alt="React Tutorial">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Lập trình</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 15/01/2024</span>
+                        </div>
+                        <h3 class="post-title">
+                            <a th:href="@{#}">Hướng dẫn học React cho người mới bắt đầu</a>
+                        </h3>
+                        <p class="post-excerpt">React là một thư viện JavaScript phổ biến...</p>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> Nguyễn Văn A</span>
+                            <div class="stats">
+                                <span><i class="fas fa-eye"></i> 1,250</span>
+                                <span><i class="fas fa-comment"></i> 23</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!-- Các bài viết khác... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Danh mục</h2>
+            <div class="categories-grid">
+                <a th:href="@{#}" class="category-item">
+                    <i class="fas fa-code"></i>
+                    <span>Lập trình</span>
+                </a>
+                <a th:href="@{#}" class="category-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Thiết kế</span>
+                </a>
+                <!-- Các danh mục khác -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div> <!-- include footer.html -->
+</body>
+</html>

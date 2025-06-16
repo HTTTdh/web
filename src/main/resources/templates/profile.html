@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Blog Cá Nhân</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html">MyBlog</a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
+                        <li><a href="blogs.html" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
+                        <li><a href="write.html" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a></li>
+                        <li><a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Hồ sơ</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40" alt="Avatar">
+                        <div class="dropdown">
+                            <a href="profile.html">Hồ sơ cá nhân</a>
+                            <a href="profile-edit.html">Cài đặt</a>
+                            <a href="#" onclick="logout()">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/120" alt="Nguyễn Văn A">
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-name-section">
+                            <h1>Nguyễn Văn A</h1>
+                            <a href="profile-edit.html" class="btn btn-outline">
+                                <i class="fas fa-edit"></i> Chỉnh sửa hồ sơ
+                            </a>
+                        </div>
+                        <p class="profile-bio">Lập trình viên Frontend với 5 năm kinh nghiệm. Đam mê chia sẻ kiến thức về React, JavaScript và các công nghệ web hiện đại.</p>
+                        
+                        <div class="profile-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>nguyen.van.a@email.com</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Hà Nội, Việt Nam</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-link"></i>
+                                <a href="https://nguyenvana.dev" target="_blank">https://nguyenvana.dev</a>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Tham gia từ 15/03/2020</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">25</div>
+                                <div class="stat-label">Bài viết</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">1,250</div>
+                                <div class="stat-label">Người theo dõi</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">180</div>
+                                <div class="stat-label">Đang theo dõi</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">3,420</div>
+                                <div class="stat-label">Lượt thích</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Tabs -->
+            <div class="profile-tabs">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" onclick="showTab('posts')">Bài viết của tôi</button>
+                    <button class="tab-btn" onclick="showTab('drafts')">Bản nháp</button>
+                    <button class="tab-btn" onclick="showTab('liked')">Đã thích</button>
+                </div>
+
+                <!-- Posts Tab -->
+                <div class="tab-content active" id="posts">
+                    <div class="tab-header">
+                        <h2>Bài viết đã xuất bản (20)</h2>
+                        <a href="write.html" class="btn btn-primary">Viết bài mới</a>
+                    </div>
+
+                    <div class="posts-list">
+                        <article class="post-item">
+                            <div class="post-item-content">
+                                <div class="post-item-meta">
+                                    <span class="category">Lập trình</span>
+                                    <span class="date">15/01/2024</span>
+                                </div>
+                                <h3 class="post-item-title">
+                                    <a href="blog-detail.html">Hướng dẫn học React cho người mới bắt đầu</a>
+                                </h3>
+                                <p class="post-item-excerpt">React là một thư viện JavaScript phổ biến để xây dựng giao diện người dùng. Trong bài viết này, chúng ta sẽ tìm hiểu các khái niệm cơ bản...</p>
+                                <div class="post-item-stats">
+                                    <span><i class="fas fa-eye"></i> 1,250</span>
+                                    <span><i class="fas fa-comment"></i> 23</span>
+                                    <span><i class="fas fa-heart"></i> 89</span>
+                                </div>
+                            </div>
+                            <div class="post-item-actions">
+                                <a href="blog-edit.html" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-content">
+                                <div class="post-item-meta">
+                                    <span class="category">Lập trình</span>
+                                    <span class="date">10/01/2024</span>
+                                </div>
+                                <h3 class="post-item-title">
+                                    <a href="blog-detail.html">Cách tối ưu hóa hiệu suất React App</a>
+                                </h3>
+                                <p class="post-item-excerpt">Trong bài viết này, chúng ta sẽ tìm hiểu các kỹ thuật tối ưu hóa hiệu suất...</p>
+                                <div class="post-item-stats">
+                                    <span><i class="fas fa-eye"></i> 890</span>
+                                    <span><i class="fas fa-comment"></i> 15</span>
+                                    <span><i class="fas fa-heart"></i> 67</span>
+                                </div>
+                            </div>
+                            <div class="post-item-actions">
+                                <a href="blog-edit.html" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Drafts Tab -->
+                <div class="tab-content" id="drafts">
+                    <div class="tab-header">
+                        <h2>Bản nháp (3)</h2>
+                    </div>
+
+                    <div class="posts-list">
+                        <article class="post-item draft">
+                            <div class="post-item-content">
+                                <div class="post-item-meta">
+                                    <span class="category draft-badge">Bản nháp</span>
+                                    <span class="category">Thiết kế</span>
+                                    <span class="date">05/01/2024</span>
+                                </div>
+                                <h3 class="post-item-title">Xu hướng thiết kế web 2024</h3>
+                                <p class="post-item-excerpt">Khám phá những xu hướng thiết kế web mới nhất trong năm 2024...</p>
+                            </div>
+                            <div class="post-item-actions">
+                                <a href="blog-edit.html" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-edit"></i> Tiếp tục viết
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Liked Tab -->
+                <div class="tab-content" id="liked">
+                    <div class="empty-state">
+                        <i class="fas fa-heart"></i>
+                        <h3>Chưa có bài viết nào được thích</h3>
+                        <p>Hãy khám phá và thích những bài viết thú vị</p>
+                        <a href="blogs.html" class="btn btn-primary">Khám phá bài viết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Về chúng tôi</h3>
+                    <p>Blog chia sẻ kiến thức và kinh nghiệm về công nghệ, thiết kế và cuộc sống.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="blogs.html">Tất cả bài viết</a></li>
+                        <li><a href="write.html">Viết bài</a></li>
+                        <li><a href="profile.html">Hồ sơ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Danh mục</h3>
+                    <ul>
+                        <li><a href="#">Lập trình</a></li>
+                        <li><a href="#">Thiết kế</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Công nghệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên hệ</h3>
+                    <ul>
+                        <li>Email: contact@myblog.com</li>
+                        <li>Điện thoại: +84 123 456 789</li>
+                        <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MyBlog. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/script.js"></script>
+    <style>
+        .profile-header {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .profile-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #e2e8f0;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-name-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .profile-name-section h1 {
+            font-size: 2rem;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        .profile-bio {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .meta-item i {
+            color: #9ca3af;
+        }
+
+        .meta-item a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .meta-item a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .profile-tabs {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tabs-nav {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: #2563eb;
+            background: #f8fafc;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .tab-header h2 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .post-item:hover {
+            background: #f3f4f6;
+        }
+
+        .post-item.draft {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .post-item-content {
+            flex: 1;
+        }
+
+        .post-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-item-meta .date {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .draft-badge {
+            background: #fef3c7 !important;
+            color: #92400e !important;
+        }
+
+        .post-item-title {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-item-title a {
+            color: #1f2937;
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .post-item-title a:hover {
+            color: #2563eb;
+        }
+
+        .post-item-excerpt {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .post-item-stats {
+            display: flex;
+            gap: 1rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .post-item-actions {
+            margin-left: 1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-name-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .profile-meta {
+                justify-content: center;
+            }
+
+            .profile-stats {
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .tabs-nav {
+                flex-direction: column;
+            }
+
+            .tab-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .post-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .post-item-actions {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+        }
+    </style>
+</body>
+</html>
