@@ -35,6 +35,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     Optional<User> users =  userRepository.findByUsername(username);
     return users.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
   }
+  public User findById(Long id) {
+    Optional<User> users =  userRepository.findById(id);
+    return users.orElseThrow(() -> new UsernameNotFoundException("User Not Found with id: " + id));
+  }
   public User updateUser(User user) {
     Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
 
@@ -48,5 +52,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throw new RuntimeException("User not found with username: " + user.getUsername());
     }
   }
+
 
 }
