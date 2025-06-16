@@ -60,6 +60,12 @@ public class PostController {
         return ResponseEntity.ok(postDTOs);
     }
 
+    @GetMapping("/myPostByTitle")
+    public ResponseEntity<?> getPostById(@RequestParam("title") String title) {
+        Post post = postService.getByTitle(title);
+        return ResponseEntity.ok(PostDTO.fromEntity(post));
+    }
+
     @PostMapping("/updatePost")
     public ResponseEntity<?> updatePost(@RequestParam Long id, @RequestBody PostDTO postDTO) {
         Post post = postDTO.toEntity();

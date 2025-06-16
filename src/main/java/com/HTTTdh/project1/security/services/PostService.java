@@ -24,7 +24,9 @@ public class PostService {
     public List<Post> getAll() {
         return postRepository.findAll();
     }
-
+    public Post getByTitle(String title) {
+        return postRepository.findByTitle(title).get(0);
+    }
     public List<Post> getPosts(User author) {
         return postRepository.findByAuthor(author);
     }

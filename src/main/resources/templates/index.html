@@ -31,30 +31,26 @@
         <div class="container">
             <h2 class="section-title">Bài viết nổi bật</h2>
             <div class="posts-grid">
-                <!-- Bài viết mẫu -->
-                <article class="post-card">
+                <article class="post-card" th:each="post : ${featuredPosts}">
                     <div class="post-image">
-                        <img src="https://via.placeholder.com/400x200" alt="React Tutorial">
+                        <img th:src="'https://th.bing.com/th/id/OIP.-5Q_g-AyNSvijApwBlY-uQHaDe?rs=1&pid=ImgDetMain'" alt="Ảnh bài viết">
                     </div>
                     <div class="post-content">
                         <div class="post-meta">
-                            <span class="category">Lập trình</span>
-                            <span class="date"><i class="fas fa-calendar"></i> 15/01/2024</span>
+                            <span class="date"><i class="fas fa-calendar"></i> <span th:text="${#dates.format(post.getCreatedAt(), 'dd/MM/yyyy')}"></span></span>
                         </div>
                         <h3 class="post-title">
-                            <a th:href="@{#}">Hướng dẫn học React cho người mới bắt đầu</a>
+                            <a th:href="@{'/posts/myPostById?title=' + ${post.getTitle()}}" th:text="${post.getTitle()}"></a>
                         </h3>
-                        <p class="post-excerpt">React là một thư viện JavaScript phổ biến...</p>
                         <div class="post-stats">
-                            <span class="author"><i class="fas fa-user"></i> Nguyễn Văn A</span>
-                            <div class="stats">
-                                <span><i class="fas fa-eye"></i> 1,250</span>
-                                <span><i class="fas fa-comment"></i> 23</span>
-                            </div>
+                            <span class="author"><i class="fas fa-user"></i> <span th:text="${post.getIdAuthor()}"></span></span>
+<!--                            <div class="stats">-->
+<!--                                <span><i class="fas fa-eye"></i> <span th:text="${post.views}"></span></span>-->
+<!--                                <span><i class="fas fa-comment"></i> <span th:text="${post.comments}"></span></span>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </article>
-                <!-- Các bài viết khác... -->
             </div>
         </div>
     </section>
