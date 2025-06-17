@@ -40,14 +40,10 @@
                             <span class="date"><i class="fas fa-calendar"></i> <span th:text="${#dates.format(post.getCreatedAt(), 'dd/MM/yyyy')}"></span></span>
                         </div>
                         <h3 class="post-title">
-                            <a th:href="@{'/posts/myPostById?title=' + ${post.getTitle()}}" th:text="${post.getTitle()}"></a>
+                            <a th:href="@{'/blog-detail?title=' + ${post.getTitle()}}"  th:text="${post.getTitle()}"></a>
                         </h3>
                         <div class="post-stats">
                             <span class="author"><i class="fas fa-user"></i> <span th:text="${post.getIdAuthor()}"></span></span>
-<!--                            <div class="stats">-->
-<!--                                <span><i class="fas fa-eye"></i> <span th:text="${post.views}"></span></span>-->
-<!--                                <span><i class="fas fa-comment"></i> <span th:text="${post.comments}"></span></span>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </article>
@@ -75,5 +71,6 @@
 </main>
 
 <div th:replace="fragments/footer :: footer"></div> <!-- include footer.html -->
+
 </body>
 </html>

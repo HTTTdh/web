@@ -1,4 +1,4 @@
-package com.HTTTdh.project1.controllers;
+package com.HTTTdh.project1.controllers.api;
 
 import com.HTTTdh.project1.DTO.PostDTO;
 import com.HTTTdh.project1.models.Post;
@@ -6,7 +6,6 @@ import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.security.services.PostService;
 import com.HTTTdh.project1.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

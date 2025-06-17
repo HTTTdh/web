@@ -1,17 +1,14 @@
-package com.HTTTdh.project1.controllers;
+package com.HTTTdh.project1.controllers.api;
 
 import com.HTTTdh.project1.models.ERole;
 import com.HTTTdh.project1.models.Role;
 import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.payload.request.LoginRequest;
 import com.HTTTdh.project1.payload.request.SignupRequest;
-import com.HTTTdh.project1.payload.response.JwtResponse;
 import com.HTTTdh.project1.payload.response.MessageResponse;
 import com.HTTTdh.project1.repository.RoleRepository;
 import com.HTTTdh.project1.repository.UserRepository;
 import com.HTTTdh.project1.security.jwt.JwtUtils;
-import com.HTTTdh.project1.security.services.UserDetailsImpl;
-import com.HTTTdh.project1.security.services.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +17,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.HttpHeaders;
 @CrossOrigin(origins = "*", maxAge = 3600)
