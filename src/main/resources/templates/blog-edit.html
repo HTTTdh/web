@@ -1,42 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh sửa bài viết - Blog Cá Nhân</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/blog-edit.css}" rel="stylesheet">
+<!--    <link th:href="@{/css/styles.css}" rel="stylesheet">-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <a href="index.html">MyBlog</a>
-                </div>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                        <li><a href="blogs.html" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
-                        <li><a href="write.html" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a></li>
-                        <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a></li>
-                    </ul>
-                </nav>
-                <div class="user-menu">
-                    <div class="user-avatar">
-                        <img src="https://via.placeholder.com/40" alt="Avatar">
-                        <div class="dropdown">
-                            <a href="profile.html">Hồ sơ cá nhân</a>
-                            <a href="profile-edit.html">Cài đặt</a>
-                            <a href="#" onclick="logout()">Đăng xuất</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+    <div th:replace="fragments/header :: header"></div>
     <!-- Main Content -->
     <main class="main">
         <div class="container">
@@ -44,15 +18,13 @@
             <div class="write-header">
                 <div class="header-content">
                     <div class="header-left">
-                        <a href="blog-detail.html" class="btn btn-outline btn-sm">
+                        <a th:href="@{'/blog-detail?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">
                             <i class="fas fa-arrow-left"></i> Quay lại
                         </a>
                         <h1>Chỉnh sửa bài viết</h1>
+
                     </div>
                     <div class="header-actions">
-                        <button class="btn btn-outline" onclick="previewPost()">
-                            <i class="fas fa-eye"></i> Xem trước
-                        </button>
                         <button class="btn btn-primary" onclick="updatePost()">
                             <i class="fas fa-save"></i> Cập nhật
                         </button>
@@ -69,8 +41,9 @@
                             <h3 class="card-title">Tiêu đề bài viết</h3>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input title-input" value="Hướng dẫn học React cho người mới bắt đầu" id="postTitle">
+                            <input type="text" class="form-input title-input" th:value="${post.getTitle()}" id="postTitle" required>
                         </div>
+                        <input hidden id="postId" th:value="${post.getId()}">
                     </div>
 
                     <!-- Featured Image -->
@@ -81,21 +54,22 @@
                         <div class="current-image">
                             <img src="https://via.placeholder.com/400x200" alt="Current featured image">
                             <div class="image-actions">
-                                <button class="btn btn-outline btn-sm" onclick="document.getElementById('imageInput').click()">
+                                <button class="btn btn-outline btn-sm" >
                                     <i class="fas fa-edit"></i> Thay đổi ảnh
                                 </button>
-                                <button class="btn btn-danger btn-sm" onclick="removeImage()">
+                                <button class="btn btn-danger btn-sm" >
                                     <i class="fas fa-trash"></i> Xóa ảnh
                                 </button>
                             </div>
                         </div>
                         <div class="image-upload">
-                            <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                            <div class="upload-area">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Thay đổi ảnh đại diện</p>
                                 <button type="button" class="btn btn-outline">Chọn ảnh mới</button>
                             </div>
-                            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;" >
+<!--                            onchange="previewImage(this)"-->
                         </div>
                     </div>
 
@@ -130,41 +104,19 @@
                             </button>
                         </div>
                         <div class="form-group">
-                            <div class="editor-container">
-                                <div id="contentEditor" class="content-editor" contenteditable="true">React là một thư viện JavaScript được phát triển bởi Facebook để xây dựng giao diện người dùng...</div>
-                            </div>
+                            <input type="text" class="editor-container content-editor" style="border:none" th:value="${post.getContent()}" id="contentEditor" required>
                         </div>
-                        <div class="editor-stats">
-                            <span id="charCount">1250 ký tự</span>
-                            <span id="readTime">Ước tính 5 phút đọc</span>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <div class="editor-container">-->
+<!--                                <div id="contentEditor" class="content-editor" contenteditable="true" th:text="${post.getContent()}" >-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
 
                 <!-- Sidebar -->
                 <div class="write-sidebar">
-                    <!-- Publish Settings -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Cài đặt xuất bản</h3>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Trạng thái</label>
-                            <select class="form-select" id="postStatus">
-                                <option value="draft">Bản nháp</option>
-                                <option value="published" selected>Đã xuất bản</option>
-                                <option value="scheduled">Lên lịch</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Hiển thị</label>
-                            <select class="form-select" id="postVisibility">
-                                <option value="public" selected>Công khai</option>
-                                <option value="private">Riêng tư</option>
-                                <option value="password">Bảo vệ bằng mật khẩu</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <!-- Category -->
                     <div class="card">
@@ -184,59 +136,13 @@
                         </div>
                     </div>
 
-                    <!-- Tags -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tags</h3>
-                        </div>
-                        <div class="form-group">
-                            <div class="tag-input-container">
-                                <input type="text" class="form-input" placeholder="Thêm tag..." id="tagInput" onkeypress="handleTagInput(event)">
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="addTag()">Thêm</button>
-                            </div>
-                            <div class="tags-container" id="tagsContainer">
-                                <div class="tag-item">
-                                    React
-                                    <button class="tag-remove" onclick="removeTag(this)">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                                <div class="tag-item">
-                                    JavaScript
-                                    <button class="tag-remove" onclick="removeTag(this)">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                                <div class="tag-item">
-                                    Frontend
-                                    <button class="tag-remove" onclick="removeTag(this)">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Excerpt -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tóm tắt</h3>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-textarea" placeholder="Viết tóm tắt ngắn gọn về bài viết..." rows="4" id="postExcerpt" maxlength="160">React là một thư viện JavaScript phổ biến để xây dựng giao diện người dùng. Trong bài viết này, chúng ta sẽ tìm hiểu các khái niệm cơ bản...</textarea>
-                            <div class="char-counter">
-                                <span id="excerptCount">159</span>/160 ký tự
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Danger Zone -->
                     <div class="card danger-zone">
                         <div class="card-header">
                             <h3 class="card-title danger-title">Vùng nguy hiểm</h3>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-danger" onclick="deleteBlog()">
+                            <button class="btn btn-danger">
                                 <i class="fas fa-trash"></i> Xóa bài viết
                             </button>
                             <p class="danger-text">Hành động này không thể hoàn tác</p>
@@ -246,114 +152,9 @@
             </div>
         </div>
     </main>
+    <div th:replace="fragments/footer :: footer"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Về chúng tôi</h3>
-                    <p>Blog chia sẻ kiến thức và kinh nghiệm về công nghệ, thiết kế và cuộc sống.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="blogs.html">Tất cả bài viết</a></li>
-                        <li><a href="write.html">Viết bài</a></li>
-                        <li><a href="profile.html">Hồ sơ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Danh mục</h3>
-                    <ul>
-                        <li><a href="#">Lập trình</a></li>
-                        <li><a href="#">Thiết kế</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Công nghệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Liên hệ</h3>
-                    <ul>
-                        <li>Email: contact@myblog.com</li>
-                        <li>Điện thoại: +84 123 456 789</li>
-                        <li>Địa chỉ: Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 MyBlog. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
+    <script th:src="@{/js/blog-edit.js}"></script>
 
-    <script src="../static/js/script.js"></script>
-    <style>
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .header-left h1 {
-            margin: 0;
-        }
-
-        .current-image {
-            position: relative;
-            margin-bottom: 1rem;
-        }
-
-        .current-image img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .image-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .danger-zone {
-            border: 2px solid #fecaca;
-        }
-
-        .danger-title {
-            color: #dc2626;
-        }
-
-        .danger-text {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 0.5rem;
-            margin-bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            .header-left {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .image-actions {
-                position: static;
-                margin-top: 0.5rem;
-                justify-content: flex-start;
-            }
-        }
-    </style>
 </body>
 </html>

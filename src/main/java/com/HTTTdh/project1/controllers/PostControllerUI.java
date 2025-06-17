@@ -19,4 +19,11 @@ public class PostControllerUI {
         model.addAttribute("post", post);
         return "blog-detail";
     }
+
+    @GetMapping("/updatePost")
+    public String updatePost(@RequestParam("title") String title, Model model) {
+        Post post = postService.getByTitle(title);
+        model.addAttribute("post", post);
+        return "blog-edit";
+    }
 }

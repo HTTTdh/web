@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,17 +19,17 @@
                     <div class="blog-meta">
                         <span class="category">Lập trình</span>
                         <div class="blog-actions">
-                            <a href="blog-edit.html" class="btn btn-outline btn-sm">
+                            <a th:href="@{'/updatePost?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">
                                 <i class="fas fa-edit"></i> Chỉnh sửa
                             </a>
-                            <button class="btn btn-danger btn-sm">
+                            <button class="btn btn-danger btn-sm" onclick="deletePost()">
                                 <i class="fas fa-trash"></i> Xóa
                             </button>
                         </div>
                     </div>
                     
                     <h1 class="blog-title" th:text="${post.getTitle()}"></h1>
-                    
+                    <input hidden th:value="${post.getId()}" id="postId">
                     <div class="blog-info">
                         <div class="author-info">
                             <img src="https://via.placeholder.com/50" alt="Author" class="author-avatar">
@@ -106,6 +106,6 @@
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>
-
+    <script th:src="@{/js/blog-edit.js}"></script>
 </body>
 </html>
