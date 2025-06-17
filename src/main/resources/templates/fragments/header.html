@@ -14,7 +14,7 @@
             <li><a th:href="@{#}" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
             <li><a th:href="@{#}" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
-              <a th:href="@{#}" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a>
+              <a th:href="@{/addPost}" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a>
             </li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
               <a th:href="@{#}" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a>

@@ -26,4 +26,9 @@ public class PostControllerUI {
         model.addAttribute("post", post);
         return "blog-edit";
     }
+
+    @GetMapping("/addPost")
+    public String addPost(){
+        return "write";
+    }
 }

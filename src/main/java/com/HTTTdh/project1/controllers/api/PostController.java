@@ -25,7 +25,7 @@ public class PostController {
     private UserDetailsServiceImpl userService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO, Model model) {
+    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User author = userService.findByUsername(username);

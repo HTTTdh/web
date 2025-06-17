@@ -4,40 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viết bài mới - Blog Cá Nhân</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/write.css}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <a href="index.html">MyBlog</a>
-                </div>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                        <li><a href="blogs.html" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
-                        <li><a href="write.html" class="nav-link active"><i class="fas fa-pen"></i> Viết bài</a></li>
-                        <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a></li>
-                    </ul>
-                </nav>
-                <div class="user-menu">
-                    <div class="user-avatar">
-                        <img src="https://via.placeholder.com/40" alt="Avatar">
-                        <div class="dropdown">
-                            <a href="profile.html">Hồ sơ cá nhân</a>
-                            <a href="profile-edit.html">Cài đặt</a>
-                            <a href="#" onclick="logout()">Đăng xuất</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
+    <div th:replace="fragments/header :: header"></div>
     <main class="main">
         <div class="container">
             <!-- Page Header -->
@@ -45,9 +17,6 @@
                 <div class="header-content">
                     <h1>Viết bài mới</h1>
                     <div class="header-actions">
-                        <button class="btn btn-outline" onclick="previewPost()">
-                            <i class="fas fa-eye"></i> Xem trước
-                        </button>
                         <button class="btn btn-primary" onclick="savePost()">
                             <i class="fas fa-save"></i> Lưu bài viết
                         </button>
@@ -74,12 +43,12 @@
                             <h3 class="card-title">Ảnh đại diện</h3>
                         </div>
                         <div class="image-upload">
-                            <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                            <div class="upload-area">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
                                 <button type="button" class="btn btn-outline">Chọn ảnh</button>
                             </div>
-                            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;">
                             <div id="imagePreview" class="image-preview hidden"></div>
                         </div>
                     </div>
@@ -119,37 +88,11 @@
                                 <div id="contentEditor" class="content-editor" contenteditable="true" placeholder="Viết nội dung bài viết của bạn..."></div>
                             </div>
                         </div>
-                        <div class="editor-stats">
-                            <span id="charCount">0 ký tự</span>
-                            <span id="readTime">Ước tính 0 phút đọc</span>
-                        </div>
                     </div>
                 </div>
 
                 <!-- Sidebar -->
                 <div class="write-sidebar">
-                    <!-- Publish Settings -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Cài đặt xuất bản</h3>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Trạng thái</label>
-                            <select class="form-select" id="postStatus">
-                                <option value="draft">Bản nháp</option>
-                                <option value="published">Đã xuất bản</option>
-                                <option value="scheduled">Lên lịch</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Hiển thị</label>
-                            <select class="form-select" id="postVisibility">
-                                <option value="public">Công khai</option>
-                                <option value="private">Riêng tư</option>
-                                <option value="password">Bảo vệ bằng mật khẩu</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <!-- Category -->
                     <div class="card">
@@ -169,326 +112,11 @@
                         </div>
                     </div>
 
-                    <!-- Tags -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tags</h3>
-                        </div>
-                        <div class="form-group">
-                            <div class="tag-input-container">
-                                <input type="text" class="form-input" placeholder="Thêm tag..." id="tagInput" onkeypress="handleTagInput(event)">
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="addTag()">Thêm</button>
-                            </div>
-                            <div class="tags-container" id="tagsContainer"></div>
-                        </div>
-                    </div>
-
-                    <!-- Excerpt -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tóm tắt</h3>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-textarea" placeholder="Viết tóm tắt ngắn gọn về bài viết..." rows="4" id="postExcerpt" maxlength="160"></textarea>
-                            <div class="char-counter">
-                                <span id="excerptCount">0</span>/160 ký tự
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Về chúng tôi</h3>
-                    <p>Blog chia sẻ kiến thức và kinh nghiệm về công nghệ, thiết kế và cuộc sống.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
-                        <li><a href="blogs.html">Tất cả bài viết</a></li>
-                        <li><a href="write.html">Viết bài</a></li>
-                        <li><a href="profile.html">Hồ sơ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Danh mục</h3>
-                    <ul>
-                        <li><a href="#">Lập trình</a></li>
-                        <li><a href="#">Thiết kế</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Công nghệ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Liên hệ</h3>
-                    <ul>
-                        <li>Email: contact@myblog.com</li>
-                        <li>Điện thoại: +84 123 456 789</li>
-                        <li>Địa chỉ: Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 MyBlog. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../static/js/script.js"></script>
-    <style>
-        .write-header {
-            padding: 2rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 2rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-content h1 {
-            font-size: 2rem;
-            color: #1f2937;
-            margin: 0;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .write-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .write-main {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .write-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .title-input {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .image-upload {
-            margin-top: 1rem;
-        }
-
-        .upload-area {
-            border: 2px dashed #d1d5db;
-            border-radius: 8px;
-            padding: 3rem 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .upload-area:hover {
-            border-color: #2563eb;
-            background: #f8fafc;
-        }
-
-        .upload-area i {
-            font-size: 3rem;
-            color: #9ca3af;
-            margin-bottom: 1rem;
-        }
-
-        .upload-area p {
-            color: #6b7280;
-            margin-bottom: 1rem;
-        }
-
-        .image-preview {
-            margin-top: 1rem;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .image-preview img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .editor-toolbar {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
-            background: #f9fafb;
-        }
-
-        .toolbar-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: transparent;
-            color: #6b7280;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .toolbar-btn:hover {
-            background: #e5e7eb;
-            color: #374151;
-        }
-
-        .toolbar-btn.active {
-            background: #2563eb;
-            color: white;
-        }
-
-        .toolbar-divider {
-            width: 1px;
-            height: 20px;
-            background: #d1d5db;
-            margin: 0 0.5rem;
-        }
-
-        .editor-container {
-            position: relative;
-        }
-
-        .content-editor {
-            min-height: 400px;
-            padding: 1.5rem;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #374151;
-        }
-
-        .content-editor:empty:before {
-            content: attr(placeholder);
-            color: #9ca3af;
-        }
-
-        .editor-stats {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background: #f9fafb;
-            border-top: 1px solid #e5e7eb;
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-
-        .tag-input-container {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tag-input-container .form-input {
-            flex: 1;
-        }
-
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 4px 8px;
-            border-radius: 16px;
-            font-size: 0.875rem;
-        }
-
-        .tag-remove {
-            background: none;
-            border: none;
-            color: #1e40af;
-            cursor: pointer;
-            padding: 0;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tag-remove:hover {
-            background: #1e40af;
-            color: white;
-        }
-
-        .char-counter {
-            text-align: right;
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 0.5rem;
-        }
-
-        @media (max-width: 1024px) {
-            .write-container {
-                grid-template-columns: 1fr;
-            }
-
-            .write-sidebar {
-                order: -1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .header-actions {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .editor-toolbar {
-                flex-wrap: wrap;
-            }
-
-            .tag-input-container {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/js/blog-edit.js}"></script>
 </body>
 </html>

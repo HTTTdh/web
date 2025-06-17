@@ -104,14 +104,11 @@
                             </button>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="editor-container content-editor" style="border:none" th:value="${post.getContent()}" id="contentEditor" required>
+                            <div class="editor-container">
+                                <div id="contentEditor" class="content-editor" contenteditable="true" th:text="${post.getContent()}" >
+                                </div>
+                            </div>
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <div class="editor-container">-->
-<!--                                <div id="contentEditor" class="content-editor" contenteditable="true" th:text="${post.getContent()}" >-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
 

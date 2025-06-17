@@ -1,6 +1,6 @@
 function updatePost() {
-        const content = document.getElementById('contentEditor').value;
-        const title = document.getElementById('postTitle').value;
+    const content = document.getElementById('contentEditor').innerText;
+    const title = document.getElementById('postTitle').value;
         const id = document.getElementById('postId').value;
         console.log(content + " " + title + " " + id);
 
@@ -85,4 +85,27 @@ function insertCode() {
     range.insertNode(codeBlock);
 
     document.getElementById('contentEditor').focus();
+}
+function savePost(){
+    const content = document.getElementById('contentEditor').innerText;
+    const title = document.getElementById('postTitle').value;
+    const response =  fetch(`http://localhost:8080/post/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({title: title, content: content}),
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Add successful!");
+                window.location.href = `/blog-detail?title=${encodeURIComponent(title)}`;
+            } else {
+                return response.text().then(text => {
+                    alert("Failed: " + text);
+                });
+            }
+        })
+        .catch(error => {
+            alert("Request error: " + error.message);
+        });
 }
