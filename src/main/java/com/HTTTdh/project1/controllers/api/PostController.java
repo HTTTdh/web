@@ -45,19 +45,7 @@ public class PostController {
         return ResponseEntity.ok(postDTOs);
     }
 
-    @GetMapping("/myPost")
-    public ResponseEntity<?> getPost() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User author = userService.findByUsername(username);
-        List<Post> posts = postService.getPosts(author);
-        List<PostDTO> postDTOs= new ArrayList<>();
-        for (Post post : posts) {
-            PostDTO dto = PostDTO.fromEntity(post);
-            postDTOs.add(dto);
-        }
-        return ResponseEntity.ok(postDTOs);
-    }
+
 
     @GetMapping("/myPostByTitle")
     public ResponseEntity<?> getPostById(@RequestParam("title") String title) {

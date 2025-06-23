@@ -18,14 +18,14 @@
                 <div class="blog-header">
                     <div class="blog-meta">
                         <span class="category">Lập trình</span>
-                        <div class="blog-actions">
-                            <a th:href="@{'/updatePost?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">
-                                <i class="fas fa-edit"></i> Chỉnh sửa
-                            </a>
-                            <button class="btn btn-danger btn-sm" onclick="deletePost()">
-                                <i class="fas fa-trash"></i> Xóa
-                            </button>
-                        </div>
+<!--                        <div class="blog-actions">-->
+<!--                            <a th:href="@{'/updatePost?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">-->
+<!--                                <i class="fas fa-edit"></i> Chỉnh sửa-->
+<!--                            </a>-->
+<!--                            <button class="btn btn-danger btn-sm" onclick="deletePost()">-->
+<!--                                <i class="fas fa-trash"></i> Xóa-->
+<!--                            </button>-->
+<!--                        </div>-->
                     </div>
                     
                     <h1 class="blog-title" th:text="${post.getTitle()}"></h1>
@@ -40,12 +40,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-<!--                        <div class="blog-stats">-->
-<!--                            <span><i class="fas fa-eye"></i> 1,250</span>-->
-<!--                            <span><i class="fas fa-comment"></i> 23</span>-->
-<!--                            <span><i class="fas fa-heart"></i> 89</span>-->
-<!--                        </div>-->
                     </div>
                 </div>
 
@@ -67,39 +61,27 @@
                 <!-- Add Comment -->
                 <div class="add-comment">
                     <h4>Thêm bình luận</h4>
-                    <form class="comment-form">
-                        <textarea class="form-textarea" placeholder="Viết bình luận của bạn..." rows="4"></textarea>
+                    <form class="comment-form" id="comment-form">
+                        <textarea class="form-textarea"  id="comment" placeholder="Viết bình luận của bạn..." rows="4"></textarea>
                         <button type="submit" class="btn btn-primary">Gửi bình luận</button>
                     </form>
                 </div>
 
                 <!-- Comments List -->
-                <div class="comments-list">
-                    <div class="comment">
+                <div class="comments-list" th:if="${comments != null}">
+                    <div class="comment" th:each="comment: ${comments}">
                         <div class="comment-avatar">
                             <img src="https://via.placeholder.com/40" alt="Commenter">
                         </div>
                         <div class="comment-content">
                             <div class="comment-header">
-                                <h5>Trần Thị B</h5>
-                                <span class="comment-date">16/01/2024</span>
+                                <h5 th:text="${comment.getAuthor().getUsername()}"></h5>
+                                <span class="comment-date" th:text="${comment.getCreatedAt()}"></span>
                             </div>
-                            <p>Bài viết rất hữu ích! Cảm ơn bạn đã chia sẻ.</p>
+                            <p th:text="${comment.getContent()}"></p>
                         </div>
                     </div>
 
-                    <div class="comment">
-                        <div class="comment-avatar">
-                            <img src="https://via.placeholder.com/40" alt="Commenter">
-                        </div>
-                        <div class="comment-content">
-                            <div class="comment-header">
-                                <h5>Lê Văn C</h5>
-                                <span class="comment-date">17/01/2024</span>
-                            </div>
-                            <p>Mình đang học React và bài viết này giúp mình hiểu rõ hơn về các khái niệm cơ bản.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </div>

@@ -7,17 +7,17 @@
     <div class="container">
       <div class="nav-wrapper">
         <div class="logo">
-          <a th:href="@{#}">MyBlog</a>
+          <a th:href="@{/home}">MyBlog</a>
         </div>
         <nav class="nav">
           <ul class="nav-list">
-            <li><a th:href="@{#}" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
             <li><a th:href="@{#}" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
               <a th:href="@{/addPost}" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a>
             </li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
-              <a th:href="@{#}" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a>
+              <a th:href="@{/profile}" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a>
             </li>
           </ul>
         </nav>
@@ -27,9 +27,9 @@
           <div class="user-avatar">
             <img src="https://via.placeholder.com/40" alt="Avatar">
             <div class="dropdown">
-              <a th:href="@{#}">Hồ sơ cá nhân</a>
+              <a th:href="@{/profile}">Hồ sơ cá nhân</a>
               <a th:href="@{#}">Cài đặt</a>
-              <a th:href="@{#}" th:onclick="'logout()'">Đăng xuất</a>
+              <a th:href="@{#}">Đăng xuất</a>
             </div>
           </div>
         </div>

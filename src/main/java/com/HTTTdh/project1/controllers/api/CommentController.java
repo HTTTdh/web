@@ -29,4 +29,12 @@ public class CommentController {
         Comment savedComment = commentService.saveComment(comment, postId);
         return ResponseEntity.ok(CommentDTO.fromEntity(savedComment));
     }
-}
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteComment(@RequestParam Long postId) {
+        Boolean status = commentService.deleteCommentById(postId);
+        if (status) {
+            return ResponseEntity.ok("Deleted successfully");
+        }
+        return ResponseEntity.ok("Deletion failed");
+    }
+    }

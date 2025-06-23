@@ -29,25 +29,39 @@ function deletePost() {
     const id = document.getElementById('postId').value;
     console.log(id)
     if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
-        const response =  fetch(`http://localhost:8080/post/deletePost?postId=${id}`, {
+        fetch(`http://localhost:8080/post/comment/delete?postId=${id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
             .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error("Xóa comment thất bại: " + text);
+                    });
+                }
+
+                return fetch(`http://localhost:8080/post/deletePost?postId=${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include'
+                });
+            })
+            .then(response => {
                 if (response.ok) {
-                    alert("Delete successful!");
+                    alert("Xóa bài viết thành công!");
                     window.location.href = `/home`;
                 } else {
                     return response.text().then(text => {
-                        alert("Failed: " + text);
+                        alert("Xóa bài viết thất bại: " + text);
                     });
                 }
             })
             .catch(error => {
-                alert("Request error: " + error.message);
+                alert("Lỗi: " + error.message);
             });
     }
+
 }
 
 function formatText(command) {
@@ -109,3 +123,24 @@ function savePost(){
             alert("Request error: " + error.message);
         });
 }
+
+document.getElementById('comment-form').addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const comment = document.getElementById('comment').value;
+    const postId = document.getElementById('postId').value;
+    console.log(comment + "  " + postId);
+    const response = await fetch(`http://localhost:8080/post/comment/add?postId=${postId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({content: comment}),
+        credentials: 'include'
+    });
+
+    if (response.ok) {
+        alert("Add successful!");
+        window.location.href = "/home";
+    } else {
+        const error = await response.text();
+        alert("Login failed: " + error);
+    }
+});
