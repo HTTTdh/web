@@ -1,4 +1,4 @@
-package com.HTTTdh.project1.controllers;
+package com.HTTTdh.project1.controllers.api;
 
 import com.HTTTdh.project1.DTO.PostDTO;
 import com.HTTTdh.project1.models.Post;
@@ -6,7 +6,6 @@ import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.security.services.PostService;
 import com.HTTTdh.project1.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class PostController {
     private UserDetailsServiceImpl userService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO, Model model) {
+    public ResponseEntity<?> addPost(@RequestBody PostDTO postDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User author = userService.findByUsername(username);
@@ -46,18 +45,12 @@ public class PostController {
         return ResponseEntity.ok(postDTOs);
     }
 
-    @GetMapping("/myPost")
-    public ResponseEntity<?> getPost() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User author = userService.findByUsername(username);
-        List<Post> posts = postService.getPosts(author);
-        List<PostDTO> postDTOs= new ArrayList<>();
-        for (Post post : posts) {
-            PostDTO dto = PostDTO.fromEntity(post);
-            postDTOs.add(dto);
-        }
-        return ResponseEntity.ok(postDTOs);
+
+
+    @GetMapping("/myPostByTitle")
+    public ResponseEntity<?> getPostById(@RequestParam("title") String title) {
+        Post post = postService.getByTitle(title);
+        return ResponseEntity.ok(PostDTO.fromEntity(post));
     }
 
     @PostMapping("/updatePost")

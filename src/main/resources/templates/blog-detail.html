@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn học React cho người mới bắt đầu - Blog Cá Nhân</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/blog-detail.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <main class="main">
+        <div class="container">
+            <article class="blog-detail">
+                <!-- Blog Header -->
+                <div class="blog-header">
+                    <div class="blog-meta">
+                        <span class="category">Lập trình</span>
+<!--                        <div class="blog-actions">-->
+<!--                            <a th:href="@{'/updatePost?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">-->
+<!--                                <i class="fas fa-edit"></i> Chỉnh sửa-->
+<!--                            </a>-->
+<!--                            <button class="btn btn-danger btn-sm" onclick="deletePost()">-->
+<!--                                <i class="fas fa-trash"></i> Xóa-->
+<!--                            </button>-->
+<!--                        </div>-->
+                    </div>
+                    
+                    <h1 class="blog-title" th:text="${post.getTitle()}"></h1>
+                    <input hidden th:value="${post.getId()}" id="postId">
+                    <div class="blog-info">
+                        <div class="author-info">
+                            <img src="https://via.placeholder.com/50" alt="Author" class="author-avatar">
+                            <div class="author-details">
+                                <h4 th:text="${post.getAuthor().getUsername()}"></h4>
+                                <div class="publish-date">
+                                    <i class="fas fa-calendar"></i><span th:text="${#dates.format(post.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Image -->
+                <div class="featured-image">
+                    <img th:src="'https://th.bing.com/th/id/OIP.-5Q_g-AyNSvijApwBlY-uQHaDe?rs=1&pid=ImgDetMain'" alt="React Tutorial">
+                </div>
+
+                <!-- Blog Content -->
+                <div class="blog-content">
+                    <p th:text="${post.getContent()}"></p>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <section class="comments-section">
+                <h3>Bình luận</h3>
+                
+                <!-- Add Comment -->
+                <div class="add-comment">
+                    <h4>Thêm bình luận</h4>
+                    <form class="comment-form" id="comment-form">
+                        <textarea class="form-textarea"  id="comment" placeholder="Viết bình luận của bạn..." rows="4"></textarea>
+                        <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                    </form>
+                </div>
+
+                <!-- Comments List -->
+                <div class="comments-list" th:if="${comments != null}">
+                    <div class="comment" th:each="comment: ${comments}">
+                        <div class="comment-avatar">
+                            <img src="https://via.placeholder.com/40" alt="Commenter">
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <h5 th:text="${comment.getAuthor().getUsername()}"></h5>
+                                <span class="comment-date" th:text="${comment.getCreatedAt()}"></span>
+                            </div>
+                            <p th:text="${comment.getContent()}"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/js/blog-edit.js}"></script>
+</body>
+</html>

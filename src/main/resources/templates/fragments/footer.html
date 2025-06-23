@@ -1,0 +1,53 @@
+<!-- footer.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+    <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Về chúng tôi</h3>
+                <p>Blog chia sẻ kiến thức và kinh nghiệm về công nghệ, thiết kế và cuộc sống.</p>
+                <div class="social-links">
+                    <a th:href="@{#}"><i class="fab fa-facebook"></i></a>
+                    <a th:href="@{#}"><i class="fab fa-twitter"></i></a>
+                    <a th:href="@{#}"><i class="fab fa-instagram"></i></a>
+                    <a th:href="@{#}"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a th:href="@{#}">Trang chủ</a></li>
+                    <li><a th:href="@{#}">Tất cả bài viết</a></li>
+                    <li><a th:href="@{#}">Viết bài</a></li>
+                    <li><a th:href="@{#}">Hồ sơ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Danh mục</h3>
+                <ul>
+                    <li><a th:href="@{#}">Lập trình</a></li>
+                    <li><a th:href="@{#}">Thiết kế</a></li>
+                    <li><a th:href="@{#}">Marketing</a></li>
+                    <li><a th:href="@{#}">Công nghệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <ul>
+                    <li>Email: contact@myblog.com</li>
+                    <li>Điện thoại: +84 123 456 789</li>
+                    <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MyBlog. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+</footer>
+</div>
+</body>
+</html>

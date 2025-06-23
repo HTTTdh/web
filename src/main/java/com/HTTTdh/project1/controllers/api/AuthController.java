@@ -1,17 +1,14 @@
-package com.HTTTdh.project1.controllers;
+package com.HTTTdh.project1.controllers.api;
 
 import com.HTTTdh.project1.models.ERole;
 import com.HTTTdh.project1.models.Role;
 import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.payload.request.LoginRequest;
 import com.HTTTdh.project1.payload.request.SignupRequest;
-import com.HTTTdh.project1.payload.response.JwtResponse;
 import com.HTTTdh.project1.payload.response.MessageResponse;
 import com.HTTTdh.project1.repository.RoleRepository;
 import com.HTTTdh.project1.repository.UserRepository;
 import com.HTTTdh.project1.security.jwt.JwtUtils;
-import com.HTTTdh.project1.security.services.UserDetailsImpl;
-import com.HTTTdh.project1.security.services.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +20,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.HttpHeaders;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -46,29 +43,27 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
-
-
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+  public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
     Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+    );
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
-    
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
-    List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
-        .collect(Collectors.toList());
 
-    return ResponseEntity.ok(new JwtResponse(jwt, 
-                         userDetails.getId(), 
-                         userDetails.getUsername(), 
-                         userDetails.getEmail(), 
-                         roles));
+    ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
+            .httpOnly(true)
+            .secure(false)
+            .path("/")
+            .maxAge( 5*60)     // 1 ngày
+            .sameSite("Lax")
+            .build();
+
+    return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .body(new MessageResponse("Login successful"));
   }
-
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -123,5 +118,4 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
-
 }

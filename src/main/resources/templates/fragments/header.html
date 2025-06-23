@@ -1,0 +1,48 @@
+<!-- templates/fragments/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="header">
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <a th:href="@{/home}">MyBlog</a>
+        </div>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a th:href="@{#}" class="nav-link"><i class="fas fa-book"></i> Tất cả bài viết</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
+              <a th:href="@{/addPost}" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a>
+            </li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
+              <a th:href="@{/profile}" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Nếu đã đăng nhập -->
+        <div class="user-menu" th:if="${#authorization.expression('isAuthenticated()')}">
+          <div class="user-avatar">
+            <img src="https://via.placeholder.com/40" alt="Avatar">
+            <div class="dropdown">
+              <a th:href="@{/profile}">Hồ sơ cá nhân</a>
+              <a th:href="@{#}">Cài đặt</a>
+              <a th:href="@{#}">Đăng xuất</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nếu chưa đăng nhập -->
+        <div class="user-menu" th:if="${#authorization.expression('!isAuthenticated()')}" style="display: flex; gap: 10px;">
+          <a th:href="@{/login}" class="nav-link">Đăng nhập</a>
+          <a th:href="@{/register}" class="nav-link">Đăng ký</a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+</div>
+</body>
+</html>

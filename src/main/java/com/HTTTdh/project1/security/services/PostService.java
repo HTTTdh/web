@@ -24,7 +24,16 @@ public class PostService {
     public List<Post> getAll() {
         return postRepository.findAll();
     }
-
+    public Post getByTitle(String title) {
+        List<Post> posts =  postRepository.findByTitle(title);
+        if (!posts.isEmpty()) {
+            return posts.get(0);
+        }
+        else {
+            System.out.println("No post found with title " + title);
+            return null;
+        }
+    }
     public List<Post> getPosts(User author) {
         return postRepository.findByAuthor(author);
     }
@@ -49,6 +58,4 @@ public class PostService {
         }
         return false;
     }
-
-
 }

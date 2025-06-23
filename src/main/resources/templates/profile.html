@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Blog Cá Nhân</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/profile.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/120" alt="Nguyễn Văn A">
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-name-section">
+                            <h1 th:text="${user.getUsername()}"></h1>
+                            <a th:href="@{/updateProfile}" class="btn btn-outline">
+                                <i class="fas fa-edit"></i> Chỉnh sửa hồ sơ
+                            </a>
+                        </div>
+<!--                        <p class="profile-bio">Lập trình viên Frontend với 5 năm kinh nghiệm. Đam mê chia sẻ kiến thức về React, JavaScript và các công nghệ web hiện đại.</p>-->
+                        
+                        <div class="profile-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-envelope"></i>
+                                <span th:text="${user.getEmail()}"></span>
+                            </div>
+<!--                            <div class="meta-item">-->
+<!--                                <i class="fas fa-map-marker-alt"></i>-->
+<!--                                <span>Hà Nội, Việt Nam</span>-->
+<!--                            </div>-->
+<!--                            <div class="meta-item">-->
+<!--                                <i class="fas fa-link"></i>-->
+<!--                                <a href="https://nguyenvana.dev" target="_blank">https://nguyenvana.dev</a>-->
+<!--                            </div>-->
+<!--                            <div class="meta-item">-->
+<!--                                <i class="fas fa-calendar"></i>-->
+<!--                                <span>Tham gia từ 15/03/2020</span>-->
+<!--                            </div>-->
+                        </div>
+
+<!--                        <div class="profile-stats">-->
+<!--                            <div class="stat-item">-->
+<!--                                <div class="stat-number">25</div>-->
+<!--                                <div class="stat-label">Bài viết</div>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <div class="stat-number">1,250</div>-->
+<!--                                <div class="stat-label">Người theo dõi</div>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <div class="stat-number">180</div>-->
+<!--                                <div class="stat-label">Đang theo dõi</div>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <div class="stat-number">3,420</div>-->
+<!--                                <div class="stat-label">Lượt thích</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Tabs -->
+            <div class="profile-tabs">
+                <div class="tabs-nav">
+                    <button class="tab-btn active">Bài viết của tôi</button>
+<!--                    <button class="tab-btn" onclick="showTab('drafts')">Bản nháp</button>-->
+<!--                    <button class="tab-btn" onclick="showTab('liked')">Đã thích</button>-->
+                </div>
+
+                <!-- Posts Tab -->
+                <div class="tab-content active" id="posts">
+                    <div class="tab-header">
+                        <h2>Bài viết đã xuất bản</h2>
+                        <a th:href="@{/addPost}" class="btn btn-primary">Viết bài mới</a>
+                    </div>
+
+                    <div class="posts-list">
+                        <article class="post-item" th:each="post : ${posts}">
+                            <div class="post-item-content">
+                                <div class="post-item-meta">
+                                    <span class="category">Lập trình</span>
+                                    <span class="date"><span th:text="${#dates.format(post.getCreatedAt(), 'dd/MM/yyyy')}"></span></span>
+                                </div>
+                                <h3 class="post-item-title">
+                                    <a th:href="@{'/blog-detail?title=' + ${post.getTitle()}}"  th:text="${post.getTitle()}"></a>
+                                </h3>
+                                <div class="post-stats">
+                                    <span class="author"><i class="fas fa-user"></i> <span th:text="${post.getAuthor().getUsername()}"></span></span>
+                                </div>
+                            </div>
+                            <div class="post-item-actions">
+                                <a th:href="@{'/updatePost?title=' + ${post.getTitle()}}" class="btn btn-outline btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

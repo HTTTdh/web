@@ -2,6 +2,7 @@ package com.HTTTdh.project1.security.services;
 
 import com.HTTTdh.project1.DTO.CommentDTO;
 import com.HTTTdh.project1.models.Comment;
+import com.HTTTdh.project1.models.Post;
 import com.HTTTdh.project1.repository.CommentRepository;
 import com.HTTTdh.project1.repository.PostRepository;
 import com.HTTTdh.project1.repository.UserRepository;
@@ -27,22 +28,22 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-//    public List<CommentDTO> getCommentByPostId(Long postId) {
-//        Post post = postRepository.findById(postId).get();
-//        List<Comment> comments = commentRepository.findByPost(post);
-//        List<CommentDTO> commentDTOS = new ArrayList<>();
-//        for (Comment comment : comments) {
-//            commentDTOS.add(new CommentDTO(comment));
-//        }
-//        return commentDTOS;
-//    }
-//
-//    public Boolean deleteComment(Long id) {
-//        if (commentRepository.existsById(id)) {
-//            commentRepository.deleteById(id);
-//            return true;
-//        }
-//        return false;
-//    }
+    public List<Comment> getCommentByPostId(Long postId) {
+        Post post = postRepository.findById(postId).get();
+        List<Comment> comments = commentRepository.findByPost(post);
+        return comments;
+    }
 
+    public Boolean deleteCommentById(Long postId) {
+        try {
+            List<Comment> comments = getCommentByPostId(postId);
+            if (comments != null && !comments.isEmpty()) {
+                commentRepository.deleteAll(comments);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

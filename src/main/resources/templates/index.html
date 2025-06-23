@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Cá Nhân - Trang Chủ</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main class="main">
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Chào mừng đến với Blog của chúng tôi</h1>
+                <p>Khám phá những bài viết thú vị về công nghệ, thiết kế và cuộc sống</p>
+                <div class="hero-buttons">
+                    <a th:href="@{/addPost}" class="btn btn-primary">Viết bài mới</a>
+                    <a th:href="@{/profile}" class="btn btn-outline">Xem hồ sơ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="featured-posts">
+        <div class="container">
+            <h2 class="section-title">Bài viết nổi bật</h2>
+            <div class="posts-grid">
+                <article class="post-card" th:each="post : ${featuredPosts}">
+                    <div class="post-image">
+                        <img th:src="'https://th.bing.com/th/id/OIP.-5Q_g-AyNSvijApwBlY-uQHaDe?rs=1&pid=ImgDetMain'" alt="Ảnh bài viết">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="date"><i class="fas fa-calendar"></i> <span th:text="${#dates.format(post.getCreatedAt(), 'dd/MM/yyyy')}"></span></span>
+                        </div>
+                        <h3 class="post-title">
+                            <a th:href="@{'/blog-detail?title=' + ${post.getTitle()}}"  th:text="${post.getTitle()}"></a>
+                        </h3>
+                        <div class="post-stats">
+                            <span class="author"><i class="fas fa-user"></i> <span th:text="${post.getIdAuthor()}"></span></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Danh mục</h2>
+            <div class="categories-grid">
+                <a th:href="@{#}" class="category-item">
+                    <i class="fas fa-code"></i>
+                    <span>Lập trình</span>
+                </a>
+                <a th:href="@{#}" class="category-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Thiết kế</span>
+                </a>
+                <!-- Các danh mục khác -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div> <!-- include footer.html -->
+
+</body>
+</html>

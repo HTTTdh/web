@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa hồ sơ - Blog Cá Nhân</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/profile.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <main class="main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="edit-header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <a href="profile.html" class="btn btn-outline btn-sm">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                        <h1>Chỉnh sửa hồ sơ</h1>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveProfile()">
+                        <i class="fas fa-save"></i> Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+
+            <div class="edit-container">
+                <!-- Avatar Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ảnh đại diện</h3>
+                    </div>
+                    <div class="avatar-section">
+                        <div class="current-avatar">
+                            <img src="https://via.placeholder.com/120" alt="Current Avatar" id="avatarPreview">
+                        </div>
+<!--                        <div class="avatar-actions">-->
+<!--                            <button class="btn btn-outline" onclick="document.getElementById('avatarInput').click()">-->
+<!--                                <i class="fas fa-upload"></i> Tải ảnh mới-->
+<!--                            </button>-->
+<!--                            <p class="upload-note">JPG, PNG hoặc GIF. Tối đa 2MB.</p>-->
+<!--                            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="previewAvatar(this)">-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
+                <!-- Basic Information -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin cơ bản</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-input" th:value="${user.getUsername()}" id="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-input" th:value="${user.getEmail()}" id="email">
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <label class="form-label">password</label>
+                            <input type="password" class="form-input" th:value="${user.getPassword()}" id="password" placeholder="password">
+                        </div>
+
+<!--                        <div class="form-group">-->
+<!--                            <label class="form-label">Website</label>-->
+<!--                            <input type="url" class="form-input" value="https://nguyenvana.dev" id="website" placeholder="https://yourwebsite.com">-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/js/profile.js}"></script>
+</body>
+</html>

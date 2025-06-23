@@ -1,4 +1,4 @@
-package com.HTTTdh.project1.controllers;
+package com.HTTTdh.project1.controllers.api;
 
 import com.HTTTdh.project1.DTO.UserDTO;
 import com.HTTTdh.project1.models.User;

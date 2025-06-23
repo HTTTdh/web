@@ -1,9 +1,7 @@
 package com.HTTTdh.project1.security.services;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -52,6 +50,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throw new RuntimeException("User not found with username: " + user.getUsername());
     }
   }
-
-
 }
