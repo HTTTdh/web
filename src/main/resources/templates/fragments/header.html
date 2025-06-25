@@ -17,6 +17,9 @@
               <a th:href="@{/addPost}" class="nav-link"><i class="fas fa-pen"></i> Viết bài</a>
             </li>
             <li th:if="${#authorization.expression('isAuthenticated()')}">
+              <a th:href="@{/chatbot}" class="nav-link"><i class="fas fa-robot"></i> Trò chuyện</a>
+            </li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}">
               <a th:href="@{/profile}" class="nav-link"><i class="fas fa-user"></i> Hồ sơ</a>
             </li>
           </ul>

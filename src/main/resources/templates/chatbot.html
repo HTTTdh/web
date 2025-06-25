@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - AI Assistant</title>
+    <link th:href="@{/css/chat-styles.css}" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <main class="main">
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="bot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bot-info">
+                    <h3>AI Assistant</h3>
+                    <span class="status online">Đang hoạt động</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button class="action-btn" id="clearChat" title="Xóa cuộc trò chuyện">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="action-btn" id="settingsBtn" title="Cài đặt">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-messages" id="chatMessages">
+            <!-- Welcome Message -->
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>Xin chào! Tôi là AI Assistant. Tôi có thể giúp gì cho bạn hôm nay?</p>
+                    </div>
+                    <div class="message-time">
+                        <span th:text="${#dates.format(#dates.createNow(), 'HH:mm')}">10:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="typing-bubble">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="chat-input-container">
+            <form class="chat-input-form" id="chatForm">
+                <div class="input-wrapper">
+                    <button type="button" class="attachment-btn" title="Đính kèm file">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="Nhập tin nhắn của bạn..."
+                            autocomplete="off"
+                            maxlength="1000"
+                    >
+                    <button type="button" class="emoji-btn" title="Emoji">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                </div>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+            <div class="input-footer">
+                <span class="char-count">0/1000</span>
+                <span class="powered-by">Powered by AI</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/js/chatbot.js}"></script>
+</body>
+
+</html>

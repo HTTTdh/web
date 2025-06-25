@@ -33,4 +33,8 @@ public class HomeController {
     public String register() {
         return "register";
     }
+    @GetMapping("/chatbot")
+    public String chatbot() {
+        return "chatbot";
+    }
 }
