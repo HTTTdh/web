@@ -4,7 +4,7 @@
 
 ## ✨ Tính năng
 
-- Đăng nhập, đăng xuất với Google (OAuth 2 - Spring Security)
+- Đăng nhập, đăng kí (Spring Security)
 - Tạo, xem, chỉnh sửa, xoá bài viết
 - Thêm và xoá bình luận cho bài viết
 - Chỉ người tạo bài viết/bình luận mới có quyền chỉnh sửa hoặc xoá
@@ -17,8 +17,7 @@
 - **Thymeleaf** – Giao diện người dùng (UI)
 - **Maven** – Quản lý thư viện
 - **H2 / MySQL** – Cơ sở dữ liệu (tùy cấu hình)
+- **Cloudinary** - Lưu hình ảnh và trả về url
+  
 
-## 🔐 Đăng nhập Google
-
-Ứng dụng sử dụng Google OAuth 2.0 để xác thực. Người dùng có thể đăng nhập bằng tài khoản Google thay vì đăng ký thủ công.
 
