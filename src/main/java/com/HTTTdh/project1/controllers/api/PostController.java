@@ -30,6 +30,7 @@ public class PostController {
         String username = authentication.getName();
         User author = userService.findByUsername(username);
         Post post = postDTO.toEntity();
+        System.out.println("url: " + post.getUrl());
         post.setAuthor(author);
         Post savedPost = postService.save(post);
         return ResponseEntity.ok(PostDTO.fromEntity(savedPost));

@@ -9,13 +9,23 @@ public class PostDTO {
     private String content;
     private Long idAuthor;
     private Date createdAt ;
+    private String url;
     public PostDTO() {}
 
-    public PostDTO(Long id, String title, String content, Date createdAt) {
+    public PostDTO(Long id, String title, String content, Date createdAt, String url) {
         this.title = title;
         this.content = content;
         this.idAuthor = id;
         this.createdAt = createdAt;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getTitle() {
@@ -52,7 +62,7 @@ public class PostDTO {
 
     public static PostDTO fromEntity(Post post) {
         Long authorId = post.getAuthor() != null ? post.getAuthor().getId() : null;
-        return new PostDTO(authorId, post.getTitle(), post.getContent(), post.getCreatedAt());
+        return new PostDTO(authorId, post.getTitle(), post.getContent(), post.getCreatedAt(), post.getUrl());
     }
 
     public Post toEntity() {
@@ -60,6 +70,7 @@ public class PostDTO {
         post.setTitle(this.title);
         post.setContent(this.content);
         post.setCreatedAt(this.createdAt);
+        post.setUrl(this.url);
         return post;
     }
 }

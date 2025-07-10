@@ -23,6 +23,7 @@ public class Post {
     private String content;
     private Date createdAt ;
     private boolean isAccept;
+    private String url;
 
 //    @OneToMany(mappedBy = "post")
 //    private List<Comment> comments;

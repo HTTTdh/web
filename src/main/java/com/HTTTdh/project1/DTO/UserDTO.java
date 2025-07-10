@@ -11,17 +11,26 @@ public class UserDTO {
     private String username;
     private String email;
     private List<PostDTO> posts;
-
+    private String avatar;
     public UserDTO() {}
 
-    public UserDTO(Long id, String username, String email, List<PostDTO> posts) {
+    public UserDTO(Long id, String username, String email, List<PostDTO> posts, String avatar) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.posts = posts;
+        this.avatar = avatar;
     }
 
     // Getters & Setters
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public Long getId() {
         return id;
@@ -61,7 +70,7 @@ public class UserDTO {
                 .map(PostDTO::fromEntity)
                 .collect(Collectors.toList());
 
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), postDTOs);
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), postDTOs, user.getAvatar());
     }
 
     // (Không bắt buộc) Nếu bạn cần chuyển từ DTO ngược lại sang Entity:

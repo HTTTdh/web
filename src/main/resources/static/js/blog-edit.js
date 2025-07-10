@@ -144,3 +144,69 @@ document.getElementById('comment-form').addEventListener("submit", async (e) => 
         alert("Login failed: " + error);
     }
 });
+
+async function upload() {
+    const fileInput = document.getElementById('fileInput');
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+    console.log(formData);
+    const response = await fetch("http://localhost:8080/api/images/upload", {
+        method: "POST",
+        credentials: 'include',
+        body: formData
+    });
+
+    const imageUrl = await response.text();
+    console.log("Image URL:", imageUrl);
+}
+
+async function uploadAndSavePost() {
+    try {
+        // 1. Lấy ảnh từ input
+        const fileInput = document.getElementById('fileInput');
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+
+        // 2. Upload ảnh
+        const uploadResponse = await fetch("http://localhost:8080/api/images/upload", {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+        });
+
+        if (!uploadResponse.ok) {
+            const error = await uploadResponse.text();
+            alert("Upload failed: " + error);
+            return;
+        }
+
+        const imageUrl = await uploadResponse.text();
+        console.log("Uploaded image URL:", imageUrl);
+
+        // 3. Lấy nội dung bài viết
+        const content = document.getElementById('contentEditor').innerText;
+        const title = document.getElementById('postTitle').value;
+        // 4. Gửi API lưu bài viết
+        const postResponse = await fetch("http://localhost:8080/post/add", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: title,
+                content: content,
+                url: imageUrl
+            }),
+            credentials: 'include'
+        });
+
+        if (postResponse.ok) {
+            alert("Add successful!");
+            window.location.href = `/blog-detail?title=${encodeURIComponent(title)}`;
+        } else {
+            const error = await postResponse.text();
+            alert("Failed to save post: " + error);
+        }
+
+    } catch (error) {
+        alert("Unexpected error: " + error.message);
+    }
+}
