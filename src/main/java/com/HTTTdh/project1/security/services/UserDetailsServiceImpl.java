@@ -1,5 +1,6 @@
 package com.HTTTdh.project1.security.services;
 
+import com.HTTTdh.project1.models.Post;
 import com.HTTTdh.project1.models.User;
 import com.HTTTdh.project1.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     return UserDetailsImpl.build(user);
   }
+  public List<User> getAll() {
+        return userRepository.findAll();
+    }
   public User findByUsername(String username) {
     Optional<User> users =  userRepository.findByUsername(username);
     return users.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));

@@ -9,6 +9,7 @@ import com.HTTTdh.project1.payload.response.MessageResponse;
 import com.HTTTdh.project1.repository.RoleRepository;
 import com.HTTTdh.project1.repository.UserRepository;
 import com.HTTTdh.project1.security.jwt.JwtUtils;
+import com.HTTTdh.project1.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.http.ResponseCookie;
@@ -59,10 +62,18 @@ public class AuthController {
             .maxAge( 5*60)     // 1 ngày
             .sameSite("Lax")
             .build();
+    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+    String role = userDetails.getRole();
+
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "Login successful");
+    response.put("role", role);
 
     return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body(new MessageResponse("Login successful"));
+            .body(response);
+
+
   }
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -81,7 +92,7 @@ public class AuthController {
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), 
                signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()), "https://tse2.mm.bing.net/th/id/OIP.sbRjMD2zaP12rWg1bR1PDAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3");
+               encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
@@ -118,4 +129,5 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
+
 }

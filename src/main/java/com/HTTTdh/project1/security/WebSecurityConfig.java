@@ -55,15 +55,17 @@ public class WebSecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsServiceImpl userDetailsService) throws Exception {
     http
             .csrf(csrf -> csrf.disable())
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/admin/posts/**", "/admin/posts","/admin/users/**", "/admin/**", "/admin/users").hasRole("ADMIN")
+                    .requestMatchers("/home", "/blog-detail","/updatePost", "/addPost", "/post/**","/post/comment","/api/images").hasRole("USER")
                     .requestMatchers(
-                            "/", "/home", "/index", "/favicon.ico",
-                            "/css/**", "/fragments/**","/js/**",
-                            "/api/auth/**", "/login", "/register"
-                    ).permitAll()
-                    .anyRequest().authenticated());
+              "/",  "/index", "/favicon.ico",
+              "/css/**", "/fragments/**","/js/**",
+              "/api/auth/**", "/login", "/register"
+              ).permitAll()
+              .anyRequest().authenticated())
+        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
 
     http.authenticationProvider(authenticationProvider(userDetailsService));
     http.addFilterBefore(authenticationJwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);

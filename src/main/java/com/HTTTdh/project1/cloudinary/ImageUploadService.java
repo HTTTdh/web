@@ -19,7 +19,7 @@ public class ImageUploadService {
     public String uploadImage(MultipartFile file) throws IOException {
         File uploadedFile = File.createTempFile("temp", file.getOriginalFilename());
         file.transferTo(uploadedFile);
-
+        System.out.println(cloudinary.api());
         Map uploadResult = cloudinary.uploader().upload(uploadedFile, ObjectUtils.emptyMap());
 
         return (String) uploadResult.get("secure_url"); // Trả về URL ảnh

@@ -51,11 +51,16 @@ public class PostService {
             throw new RuntimeException("error");
 
     }
+
     public Boolean deletePostById(Long id) {
         if (postRepository.existsById(id)) {
             postRepository.deleteById(id);
             return true;
         }
         return false;
+    }
+
+    public Post getPostById(Long id) {
+        return postRepository.findById(id).get();
     }
 }

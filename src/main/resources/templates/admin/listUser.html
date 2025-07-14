@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" th:href="@{/admin/styles.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css}">
+</head>
+
+  <script>
+    function confirmDelete(id) {
+      if (confirm('Bạn có chắc chắc muốn xóa bài báo này?')) {
+        // window.location.href = "admin?action=deleteUser&idUser=" + id;
+      }
+    }
+  </script>
+  <body>
+  <div class="admin-dashboard">
+    <header class="header">
+      <div class="logo">Trang Admin</div>
+      <div class="user-info">
+        <span>Welcome, Admin</span>
+        <form  method="post" action="/logout">
+          <button class="logout-btn" type="submit">Logout</button>
+        </form>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><a th:href="@{/admin/posts}"><i class="fas fa-newspaper"></i> Danh sách bài báo</a></li>
+          <li><a th:href="@{/admin/users}"><i class="fas fa-users"></i> Danh sách người dùng</a></li>
+          <li><a th:href="@{#}"><i class="fas fa-cog"></i> Cài đặt </a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <h1>Danh sách người dùng</h1>
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="user : ${users}">
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.email}"></td>
+          <td>
+            <a th:href="@{/deleteUser/{id}(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">Xóa</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+  </body>
+</html>

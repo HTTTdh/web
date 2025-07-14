@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+    <script>
+        function confirmDelete(id) {
+            if (confirm('Bạn có chắc chắc muốn xóa bài báo này?')) {
+                // window.location.href = "admin?action=deleteArticle&idArticles=" + id;
+            }
+        }
+    </script>
+    <body>
+    <div class="admin-dashboard">
+        <header class="header">
+            <div class="logo">Trang Admin</div>
+            <div class="user-info">
+                <span>Welcome, Admin</span>
+                <form  method="post" action="/logout">
+                    <button class="logout-btn" type="submit">Logout</button>
+                </form>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a th:href="@{/admin/posts}"><i class="fas fa-newspaper"></i> Danh sách bài báo</a></li>
+                    <li><a th:href="@{/admin/users}"><i class="fas fa-users"></i> Danh sách người dùng</a></li>
+                    <li><a th:href="@{#}"><i class="fas fa-cog"></i> Cài đặt </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>Danh sách bài viết</h1>
+            <div class="actions">
+                <input type="text" placeholder="Search articles..." class="search-bar">
+                <select class="filter">
+                    <option value="">All</option>
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                </select>
+            </div>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.title}"></td>
+                    <td th:text="${post.content}"></td>
+                    <td th:text="${post.createdAt}"></td>
+                    <td th:text="${post.author}"></td>
+                    <td th:text="${post.accept}"></td>
+                    <td>
+                    <button class="btn btn-danger btn-sm" th:attr="data-id=${post.id}" onclick="confirmAccept(this)">
+                        Duyệt
+                    </button>
+                    <form id="acceptForm" method="post">
+                        <input type="hidden" name="postId" id="postId">
+                    </form>
+                    </td>
+                    <td>
+                        <a th:href="@{/deleteArticle/{id}(id=${post.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa bài viết này?')">Xóa</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <th:block th:if="${totalPages != null}">
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/posts(page=${currentPage - 1})}">Previous</a>
+                        </li>
+                        <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}" th:classappend="${pageNum == currentPage} ? 'active'">
+                            <a class="page-link" th:href="@{/admin/posts(page=${pageNum})}" th:text="${pageNum}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                            <a class="page-link" th:href="@{/admin/posts(page=${currentPage + 1})}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </th:block>
+        </main>
+    </div>
+    </body>
+<script>
+    function confirmAccept(button) {
+        const postId = button.getAttribute("data-id");
+        if (confirm("Bạn có muốn duyệt bài viết này không?")) {
+            document.getElementById("postId").value = postId;
+            document.getElementById("acceptForm").action = `/admin/posts/${postId}`;
+            document.getElementById("acceptForm").submit();
+        }
+    }
+</script>
+</html>

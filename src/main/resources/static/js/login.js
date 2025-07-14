@@ -13,8 +13,17 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-        alert("Login successful!");
-        window.location.href = "/home";
+        response.json().then(data => {
+            alert("Login successful!");
+            if (data.role === "ROLE_ADMIN") {
+                window.location.href = "/admin";
+            } else if (data.role === "ROLE_USER") {
+                window.location.href = "/home";
+            } else {
+                // nếu role khác không xác định
+                window.location.href = "/";
+            }
+        });
     } else {
         const error = await response.text();
         alert("Login failed: " + error);

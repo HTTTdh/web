@@ -32,7 +32,7 @@
             <div class="posts-grid">
                 <article class="post-card" th:each="post : ${featuredPosts}">
                     <div class="post-image">
-                        <img th:src="'https://th.bing.com/th/id/OIP.-5Q_g-AyNSvijApwBlY-uQHaDe?rs=1&pid=ImgDetMain'" alt="Ảnh bài viết">
+                        <img th:src="${post.getUrl()}" alt="Ảnh bài viết">
                     </div>
                     <div class="post-content">
                         <div class="post-meta">

@@ -1,5 +1,6 @@
 package com.HTTTdh.project1.security.services;
 
+import com.HTTTdh.project1.models.Role;
 import com.HTTTdh.project1.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,15 +23,16 @@ public class UserDetailsImpl implements UserDetails {
 
   @JsonIgnore
   private String password;
-
+  private Role role;
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, String password,
+  public UserDetailsImpl(Long id, String username, String email, String password, Role role,
       Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;
+    this.role = role;
     this.authorities = authorities;
   }
 
@@ -38,12 +40,13 @@ public class UserDetailsImpl implements UserDetails {
     List<GrantedAuthority> authorities = user.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName().name()))
         .collect(Collectors.toList());
-
+    Role firstRole = user.getRoles().stream().findFirst().orElse(null);
     return new UserDetailsImpl(
         user.getId(), 
         user.getUsername(), 
         user.getEmail(),
-        user.getPassword(), 
+        user.getPassword(),
+        firstRole,
         authorities);
   }
 
@@ -58,6 +61,10 @@ public class UserDetailsImpl implements UserDetails {
 
   public String getEmail() {
     return email;
+  }
+
+  public String getRole() {
+    return role.getName().name();
   }
 
   @Override
